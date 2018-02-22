@@ -1,15 +1,17 @@
-<form name="searchForm" role="form">
+<form [formGroup]='formModule' novalidate>
   <div class="form-group">
     <label for="productTitle">商品名称：</label>
-    <input type="text" id="productTitle" placeholder="商品名称" class="form-control" />
+    <input [class.hasError]="!formModule.get('title').valid && formModule.get('title').touched" formControlName='title' type="text" placeholder="商品名称" class="form-control" />
+    <span class="waring" [hidden]="formModule.get('title').valid || formModule.get('title').untouched">不少于三个字符</span>
   </div>
   <div class="form-group">
     <label for="productPrice">商品价格：</label>
-    <input type="number" id="productPrice" placeholder="商品价格" class="form-control" />
+    <input [class.hasError]="!formModule.get('price').valid && formModule.get('price').touched" formControlName='price' type="number" placeholder="商品价格" class="form-control" />
+    <span>{{formModule.getError('price','price')?.errorMsg}}</span>
   </div>
   <div class="form-group">
     <label for="productCategory">商品类别：</label>
-    <select id="productCategory" class="form-control"></select>
+    <select formControlName='category' class="form-control"></select>
   </div>
   <div class="form-group">
     <button type="submit" class="btn btn-primary btn-block">搜索</button>
